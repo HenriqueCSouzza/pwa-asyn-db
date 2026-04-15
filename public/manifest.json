@@ -1,0 +1,8 @@
+{
+  "name": "Offline App",
+  "short_name": "OfflineApp",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
