@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 
 export default function SyncStatus() {
-  const [online, setOnline] = useState(true);
+  const [online, setOnline] = useState(
+    typeof window !== "undefined" ? navigator.onLine : true,
+  );
   const onOnline = () => setOnline(true);
   const onOffline = () => setOnline(false);
 
