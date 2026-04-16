@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Box, Container } from "@mui/material";
 import Form from "@/components/Form";
 import SyncStatus from "@/components/SyncStatus";
 import { useOfflineQueue } from "@/hooks/useOfflineQueue";
@@ -17,9 +18,11 @@ export default function Page() {
   }, []);
 
   return (
-    <main>
-      <SyncStatus />
-      <Form />
-    </main>
+    <Container maxWidth="sm" sx={{ py: 4 }}>
+      <Box sx={{ display: "grid", gap: 3 }}>
+        <SyncStatus />
+        <Form />
+      </Box>
+    </Container>
   );
 }

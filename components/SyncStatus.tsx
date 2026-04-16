@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Chip, Stack, Typography } from "@mui/material";
+import { useOnlineOfflineStatus } from "@/hooks/useOnlineOfflineStatus";
 
 export default function SyncStatus() {
-  const [online, setOnline] = useState(
-    typeof window !== "undefined" ? navigator.onLine : true,
+  const { isOnline } = useOnlineOfflineStatus();
+
+  return (
+    <Stack
+      direction="row"
+      alignItems="center"
+      spacing={2}
+      sx={{ p: 2, bgcolor: "background.paper", borderRadius: 2, boxShadow: 1 }}
+    >
+      <Typography variant="body1">Status:</Typography>
+      <Chip
+        label={isOnline ? "🟢 Online" : "🔴 Offline"}
+        color={isOnline ? "success" : "error"}
+        variant="outlined"
+      />
+    </Stack>
   );
-  const onOnline = () => setOnline(true);
-  const onOffline = () => setOnline(false);
-
-  useEffect(() => {
-    window.addEventListener("online", onOnline);
-    window.addEventListener("offline", onOffline);
-
-    return () => {
-      window.removeEventListener("online", onOnline);
-      window.removeEventListener("offline", onOffline);
-    };
-  }, []);
-
-  return <div>Status: {online ? "🟢 Online" : "🔴 Offline"}</div>;
 }

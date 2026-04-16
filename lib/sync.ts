@@ -5,10 +5,9 @@ const MAX_RETRIES = 5;
 
 export async function processQueue() {
   const items = await db.queue.where("status").equals("pending").toArray();
-
+  console.log("Processando fila:", items);
   for (const item of items) {
     try {
-      await db.queue.update(item.id, { status: "processing" });
       const payload = item.payload as { [key: string]: unknown };
       const res = await fetch("/api/forms", {
         method: "POST",

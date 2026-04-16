@@ -19,9 +19,10 @@ Esta é uma PWA completa que permite os usuários:
 - **Next.js 16** (App Router)
 - **React 19**
 - **TypeScript 5**
+- **MUI 7** (Material UI)
 - **Dexie 4** (IndexedDB ORM)
 - **Service Worker** (Workbox)
-- **TailwindCSS 4** (CSS moderno)
+- **CSS moderno**
 
 ---
 
@@ -58,7 +59,10 @@ Esta é uma PWA completa que permite os usuários:
 - Componente `SyncStatus` que:
   - Inicializa com `navigator.onLine`
   - Exibe status de conectividade: `🟢 Online` ou `🔴 Offline`
+  - Usa componentes MUI para exibir o status de forma visual
 - Formulário simples que salva dados offline
+  - Migrado para `TextField`, `Button` e layout MUI
+- Tema global MUI aplicado via `ThemeProvider` e `CssBaseline`
 
 ### 4. Service Worker e PWA
 
@@ -199,19 +203,22 @@ Deploy em qualquer plataforma que suporte Docker (Heroku, DigitalOcean, etc).
 ```
 .
 ├── app/
-│   ├── page.tsx                 # Página principal com SW registration
+│   ├── page.tsx                 # Página principal com SW registration e layout MUI
 │   ├── layout.tsx               # Layout com metatags PWA
+│   ├── providers.tsx            # Provider MUI global
 │   ├── globals.css
 │   └── api/
 │       └── forms/
 │           └── route.ts         # API idempotente de formulários
 ├── components/
-│   ├── Form.tsx                 # Formulário offline-first
-│   └── SyncStatus.tsx           # Indicador de conectividade
+│   ├── Form.tsx                 # Formulário offline-first com MUI
+│   └── SyncStatus.tsx           # Indicador de conectividade com MUI
 ├── hooks/
 │   └── useOfflineQueue.ts       # Hook que gerencia sincronização
 ├── lib/
 │   ├── db.ts                    # Dexie & IndexedDB setup
+│   ├── mui/
+│   │   └── theme.ts             # Tema MUI global
 │   ├── queue.ts                 # Função enqueue
 │   └── sync.ts                  # Motor de sincronização (exponential backoff)
 ├── public/

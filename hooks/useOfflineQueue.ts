@@ -2,19 +2,14 @@
 
 import { useEffect } from "react";
 import { processQueue } from "@/lib/sync";
+import { useOnlineOfflineStatus } from "./useOnlineOfflineStatus";
 
 export function useOfflineQueue() {
+  const { isOnline } = useOnlineOfflineStatus();
+
   useEffect(() => {
-    // roda ao iniciar
-    if (navigator.onLine) {
+    if (isOnline) {
       processQueue();
     }
-
-    // roda quando voltar online
-    window.addEventListener("online", processQueue);
-
-    return () => {
-      window.removeEventListener("online", processQueue);
-    };
-  }, []);
+  }, [isOnline]);
 }
